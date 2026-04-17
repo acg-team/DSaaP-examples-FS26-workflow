@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gc-content"
+version = "0.1.0"
+description = "GC content calculator for DNA sequences"
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.9"
+dependencies = [
+    "biopython>=1.86",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest",
+    "pytest-mock",
+    "pytest-cov",
+    "coverage",
+]
+
+[project.scripts]
+gc-content = "gc_content.gc_content:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["gc_content*"]
+
+[tool.pytest.ini_options]
+testpaths = ["test"]
+
+[tool.coverage.run]
+source = ["gc_content"]
+
+[tool.mypy]
+ignore_missing_imports = true
