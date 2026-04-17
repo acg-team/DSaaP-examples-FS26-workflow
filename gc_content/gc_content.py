@@ -10,12 +10,16 @@ def calculate_gc_content(record: SeqRecord) -> float:
     """
     Calculates the GC content of a DNA sequence.
 
+    This implementation counts ``G`` and ``C`` bases, and also treats the
+    IUPAC ambiguity code ``S`` (meaning ``G`` or ``C``) as contributing to
+    GC content.
+
     Args:
         record (SeqRecord): The DNA sequence record.
 
     Returns:
-        float: The fraction of G and C bases in the sequence (0.0 to 1.0).
-        0.0 if the sequence is empty.
+        float: The fraction of ``G``, ``C``, and IUPAC ``S`` bases in the
+        sequence (0.0 to 1.0). Returns 0.0 if the sequence is empty.
 
     Example:
     >>> from Bio.SeqRecord import SeqRecord, Seq
