@@ -3,9 +3,6 @@ from Bio.SeqRecord import SeqRecord
 import argparse
 import logging
 
-# Configure logging
-logging.basicConfig(level=logging.INFO,
-                    format='%(levelname)s: %(asctime)s: %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
 logger = logging.getLogger(__name__)
 
 
@@ -64,6 +61,12 @@ def read_sequences_from_file(file_path: str) -> list[SeqRecord]:
 
 
 def main():
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(levelname)s: %(asctime)s: %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
+    )
+
     parser = argparse.ArgumentParser(
         description="Calculate GC content for each sequence in a FASTA file."
     )
