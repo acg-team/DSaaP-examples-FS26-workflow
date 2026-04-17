@@ -10,7 +10,7 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# Run tests and coverage 
+# Run tests and coverage
 jobs:
   python:
     uses: lpenz/ghworkflow-python/.github/workflows/python.yml@v0.10.0
