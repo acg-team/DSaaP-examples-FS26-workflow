@@ -1,9 +1,7 @@
 from Bio import SeqIO
 from Bio.SeqRecord import SeqRecord
-from collections.abc import Sequence
 import argparse
 import logging
-import sys
 
 # Configure logging
 logging.basicConfig(level=logging.INFO,
