@@ -14,7 +14,7 @@ def test_read_sequences_non_fasta():
 
 def test_read_sequences_empty_file():
     # Function returns an empty list when the file is empty
-    result = read_sequences_from_file("test/data/empty.fasta")
+    result = read_sequences_from_file("test/data/DNA_empty.fasta")
     assert result == []
 
 def test_read_sequences_valid():
