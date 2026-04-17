@@ -49,7 +49,9 @@ def test_read_sequences_mocked(mocker):
     mock_open.assert_called_once_with(file_path, "r")
 
     # Verify SeqIO.parse was called with correct arguments
-    mock_parse.assert_called_once_with(mock_open.return_value, "fasta-pearson")
+    mock_parse.assert_called_once_with(
+        mock_open.return_value.__enter__.return_value, "fasta-pearson"
+    )
 
 def test_read_sequences_generic_exception(mocker):
     # Mock file open
