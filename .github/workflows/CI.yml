@@ -1,0 +1,22 @@
+name: CI
+
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Run tests and coverage 
+jobs:
+  python:
+    uses: lpenz/ghworkflow-python/.github/workflows/python.yml@v0.10.0
+    with:
+      coveralls: true
+      codecov: true
+      deb: false
+      publish_pypi: false
+      publish_github_release: false
