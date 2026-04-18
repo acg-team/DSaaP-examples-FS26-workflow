@@ -22,5 +22,3 @@ jobs:
       docs: false
       publish_pypi: false
       publish_github_release: false
-    secrets:
-      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
