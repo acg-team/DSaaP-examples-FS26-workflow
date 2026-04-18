@@ -58,7 +58,9 @@ def read_sequences_from_file(file_path: str) -> list[SeqRecord]:
         if len(sequences) == 0:
             logger.warning("No sequences found in %s", file_path)
         else:
-            logger.info("Successfully read %i sequences from %s", len(sequences), file_path)
+            logger.info(
+                "Successfully read %i sequences from %s", len(sequences), file_path
+            )
     except FileNotFoundError:
         logger.error("File not found at %s", file_path)
         return []
