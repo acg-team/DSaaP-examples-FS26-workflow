@@ -1,7 +1,12 @@
-from Bio import SeqIO
-from Bio.SeqRecord import SeqRecord
+"""
+Utilities and CLI for reading FASTA records and computing GC content.
+"""
+
 import argparse
 import logging
+
+from Bio import SeqIO
+from Bio.SeqRecord import SeqRecord
 
 logger = logging.getLogger(__name__)
 
@@ -30,7 +35,7 @@ def calculate_gc_content(record: SeqRecord) -> float:
         return 0.0
 
     sequence = record.seq.upper()  # Ensure sequence is uppercase for counting
-    gc_count = sequence.count('G') + sequence.count('C') + sequence.count('S')
+    gc_count = sequence.count("G") + sequence.count("C") + sequence.count("S")
     return gc_count / len(sequence)
 
 
@@ -46,25 +51,29 @@ def read_sequences_from_file(file_path: str) -> list[SeqRecord]:
     """
     sequences = []
     try:
-        logger.info(f"Reading sequences from {file_path}")
-        with open(file_path, "r") as handle:
+        logger.info("Reading sequences from %s", file_path)
+        with open(file_path, "r", encoding="utf-8") as handle:
             for record in SeqIO.parse(handle, "fasta-pearson"):
                 sequences.append(record)
         if len(sequences) == 0:
-            logger.warning(f"No sequences found in {file_path}")
+            logger.warning("No sequences found in %s", file_path)
         else:
-            logger.info(f"Successfully read {len(sequences)} sequences from {file_path}")
+            logger.info("Successfully read %i sequences from %s", len(sequences), file_path)
     except FileNotFoundError:
-        logger.error(f"File not found at {file_path}")
+        logger.error("File not found at %s", file_path)
         return []
-    except Exception as e:
-        logger.exception(f"Error reading file: {e}")
+    except IOError as e:
+        logger.exception("Error reading file: %s", e)
         return []
 
     return sequences
 
 
 def main():
+    """
+    Run the CLI to calculate and print GC content for FASTA sequences.
+    """
+
     logging.basicConfig(
         level=logging.INFO,
         format="%(levelname)s: %(asctime)s: %(message)s",
@@ -84,5 +93,5 @@ def main():
         print(f">{record.id}\nGC content: {gc_content:.2%}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

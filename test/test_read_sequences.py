@@ -1,21 +1,29 @@
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-class-docstring
+# pylint: disable=missing-function-docstring
+
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
 from gc_content.gc_content import read_sequences_from_file
 
+
 def test_read_sequences_file_not_found():
     # Function returns an empty list when the file is not found
     result = read_sequences_from_file("non_existent_file.fasta")
-    assert result == []
+    assert len(result) == 0
+
 
 def test_read_sequences_non_fasta():
     # Function returns an empty list when the file is not a FASTA file
     result = read_sequences_from_file("test/data/non_fasta.phy")
-    assert result == []
+    assert len(result) == 0
+
 
 def test_read_sequences_empty_file():
     # Function returns an empty list when the file is empty
     result = read_sequences_from_file("test/data/DNA_empty.fasta")
-    assert result == []
+    assert len(result) == 0
+
 
 def test_read_sequences_valid():
     # Function returns a list of SeqRecord objects when the file is valid
@@ -30,12 +38,13 @@ def test_read_sequences_valid():
     assert result[3].id == "D"
     assert str(result[3].seq) == "GTCTA"
 
+
 def test_read_sequences_mocked(mocker):
     # Mock file open
-    mock_open = mocker.patch('builtins.open', mocker.mock_open())
+    mock_open = mocker.patch("builtins.open", mocker.mock_open())
 
     # Mock SeqIO.parse to return an iterator of SeqRecords
-    mock_parse = mocker.patch('Bio.SeqIO.parse')
+    mock_parse = mocker.patch("Bio.SeqIO.parse")
     mock_record1 = SeqRecord(Seq("ATGC"), id="seq1")
     mock_record2 = SeqRecord(Seq("CGTA"), id="seq2")
     mock_parse.return_value = iter([mock_record1, mock_record2])
@@ -46,21 +55,21 @@ def test_read_sequences_mocked(mocker):
     assert result == [mock_record1, mock_record2]
 
     # Verify open was called
-    mock_open.assert_called_once_with(file_path, "r")
+    mock_open.assert_called_once_with(file_path, "r", encoding="utf-8")
 
     # Verify SeqIO.parse was called with correct arguments
     mock_parse.assert_called_once_with(
         mock_open.return_value.__enter__.return_value, "fasta-pearson"
     )
 
-def test_read_sequences_generic_exception(mocker):
-    # Mock file open
-    mock_open = mocker.patch('builtins.open')
 
-    # Configure the mock to raise a generic Exception
-    mock_open.side_effect = Exception("Generic error")
+def test_read_sequences_ioerror(mocker):
+    # Mock file open
+    mock_open = mocker.patch("builtins.open")
+
+    # Configure the mock to raise an IOError when trying to open the file
+    mock_open.side_effect = IOError("Generic error")
 
     result = read_sequences_from_file("dummy.fasta")
 
-    assert result == []
-
+    assert len(result) == 0
