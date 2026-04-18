@@ -55,7 +55,7 @@ def test_read_sequences_mocked(mocker):
     assert result == [mock_record1, mock_record2]
 
     # Verify open was called
-    mock_open.assert_called_once_with(file_path, "r")
+    mock_open.assert_called_once_with(file_path, "r", encoding="utf-8")
 
     # Verify SeqIO.parse was called with correct arguments
     mock_parse.assert_called_once_with(
@@ -63,12 +63,12 @@ def test_read_sequences_mocked(mocker):
     )
 
 
-def test_read_sequences_generic_exception(mocker):
+def test_read_sequences_ioerror(mocker):
     # Mock file open
     mock_open = mocker.patch("builtins.open")
 
-    # Configure the mock to raise a generic Exception
-    mock_open.side_effect = Exception("Generic error")
+    # Configure the mock to raise an IOError when trying to open the file
+    mock_open.side_effect = IOError("Generic error")
 
     result = read_sequences_from_file("dummy.fasta")
 
