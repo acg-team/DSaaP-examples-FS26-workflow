@@ -33,3 +33,4 @@ testpaths = ["test"]
 
 [tool.coverage.run]
 source = ["gc_content"]
+omit = ["__init__.py"]
