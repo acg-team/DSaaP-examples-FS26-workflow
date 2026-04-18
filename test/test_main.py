@@ -9,7 +9,7 @@ from gc_content.gc_content import main
 
 
 @pytest.fixture
-def mock_deps(mocker):
+def mocked_dependencies(mocker):
     mock_parse_args = mocker.patch("argparse.ArgumentParser.parse_args")
     mock_parse_args.return_value.file_path = "dummy.fasta"
 
