@@ -58,7 +58,7 @@ def read_sequences_from_file(file_path: str) -> list[SeqRecord]:
     except FileNotFoundError:
         logger.error("File not found at %s", file_path)
         return []
-    except Exception as e:
+    except IOError as e:
         logger.exception("Error reading file: %s", e)
         return []
 
