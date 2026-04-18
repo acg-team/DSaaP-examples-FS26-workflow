@@ -1,6 +1,7 @@
 # pylint: disable=missing-module-docstring
 # pylint: disable=missing-class-docstring
 # pylint: disable=missing-function-docstring
+# pylint: disable=redefined-outer-name
 
 import pytest
 from Bio.Seq import Seq
@@ -9,15 +10,14 @@ from gc_content.gc_content import main
 
 
 @pytest.fixture
-def mocked_dependencies(mocker):
+def mock_deps(mocker):
     mock_parse_args = mocker.patch("argparse.ArgumentParser.parse_args")
     mock_parse_args.return_value.file_path = "dummy.fasta"
 
     return {
         "parse_args": mock_parse_args,
         "read": mocker.patch("gc_content.gc_content.read_sequences_from_file"),
-        "calculate": mocker.patch("gc_content.gc_content.\
-            calculate_gc_content"),
+        "calculate": mocker.patch("gc_content.gc_content.calculate_gc_content"),
         "print": mocker.patch("builtins.print"),
     }
 
