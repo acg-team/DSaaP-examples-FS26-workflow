@@ -1,3 +1,7 @@
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-class-docstring
+# pylint: disable=missing-function-docstring
+
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
 from gc_content.gc_content import read_sequences_from_file
@@ -6,19 +10,19 @@ from gc_content.gc_content import read_sequences_from_file
 def test_read_sequences_file_not_found():
     # Function returns an empty list when the file is not found
     result = read_sequences_from_file("non_existent_file.fasta")
-    assert result == []
+    assert len(result) == 0
 
 
 def test_read_sequences_non_fasta():
     # Function returns an empty list when the file is not a FASTA file
     result = read_sequences_from_file("test/data/non_fasta.phy")
-    assert result == []
+    assert len(result) == 0
 
 
 def test_read_sequences_empty_file():
     # Function returns an empty list when the file is empty
     result = read_sequences_from_file("test/data/DNA_empty.fasta")
-    assert result == []
+    assert len(result) == 0
 
 
 def test_read_sequences_valid():
@@ -68,4 +72,4 @@ def test_read_sequences_generic_exception(mocker):
 
     result = read_sequences_from_file("dummy.fasta")
 
-    assert result == []
+    assert len(result) == 0
