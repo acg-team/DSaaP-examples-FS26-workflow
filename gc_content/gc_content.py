@@ -1,3 +1,7 @@
+"""
+Utilities and CLI for reading FASTA records and computing GC content.
+"""
+
 import argparse
 import logging
 
@@ -62,6 +66,10 @@ def read_sequences_from_file(file_path: str) -> list[SeqRecord]:
 
 
 def main():
+    """
+    Run the CLI to calculate and print GC content for FASTA sequences.
+    """
+
     logging.basicConfig(
         level=logging.INFO,
         format="%(levelname)s: %(asctime)s: %(message)s",
