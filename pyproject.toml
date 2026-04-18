@@ -33,6 +33,4 @@ testpaths = ["test"]
 
 [tool.coverage.run]
 source = ["gc_content"]
-
-[tool.mypy]
-ignore_missing_imports = true
+omit = ["__init__.py"]
