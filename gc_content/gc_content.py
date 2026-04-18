@@ -26,7 +26,7 @@ def calculate_gc_content(record: SeqRecord) -> float:
         return 0.0
 
     sequence = record.seq.upper()  # Ensure sequence is uppercase for counting
-    gc_count = sequence.count('G') + sequence.count('C') + sequence.count('S')
+    gc_count = sequence.count("G") + sequence.count("C") + sequence.count("S")
     return gc_count / len(sequence)
 
 
@@ -49,7 +49,8 @@ def read_sequences_from_file(file_path: str) -> list[SeqRecord]:
         if len(sequences) == 0:
             logger.warning(f"No sequences found in {file_path}")
         else:
-            logger.info(f"Successfully read {len(sequences)} sequences from {file_path}")
+            logger.info(f"Successfully read {len(sequences)} sequences \
+                from {file_path}")
     except FileNotFoundError:
         logger.error(f"File not found at {file_path}")
         return []
@@ -80,5 +81,5 @@ def main():
         print(f">{record.id}\nGC content: {gc_content:.2%}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
