@@ -4,6 +4,8 @@ This example contains a basic Python script to calculate GC content from sequenc
 
 The more important part of this repository is the GitHub actions component.
 
+[![Licence](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/acg-team/DSaaP-examples-FS26-workflow#license) [![CI](https://github.com/acg-team/DSaaP-examples-FS26-workflow/actions/workflows/pytest_doctests.yml/badge.svg)](https://github.com/acg-team/DSaaP-examples-FS26-workflow/actions) [![codecov](https://codecov.io/gh/acg-team/DSaaP-examples-FS26-workflow/branch/main/graph/badge.svg)](https://codecov.io/gh/acg-team/DSaaP-examples-FS26-workflow)
+
 ## Setup
 
 To run these examples, you need Python 3 installed and a clone of the [DSaaP examples (workflow) repository]( https://github.com/acg-team/DSaaP-examples-FS26-workflow ).
@@ -75,6 +77,6 @@ Jūlija Pečerska, Applied Computational Genomics Team.
 
 Developing Software as a Product (DSaaP) course, Spring semester 2026 (FS26).
 
-## License
+## Licence
 
-This project is licensed under the MIT License – see the LICENSE file for details.
+This project is licensed under the MIT Licence – see the LICENSE file for details.
