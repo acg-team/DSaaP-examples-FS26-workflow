@@ -28,6 +28,9 @@ pip install .
 
 # Install test tooling as defined in pyproject.toml
 pip install .[test]
+
+# Install development tooling (black, pylint)
+pip install .[dev]
 ```
 
 If you only want to use the CLI without the test tools, installing `.` is enough.
