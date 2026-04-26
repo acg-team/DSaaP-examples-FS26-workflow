@@ -35,6 +35,9 @@ gc-content = "gc_content.gc_content:main"
 [tool.setuptools]
 package-dir = { "" = "src" }
 
+[tool.setuptools.packages.find]
+where = ["src"]
+
 [tool.pytest.ini_options]
 testpaths = ["test"]
 
