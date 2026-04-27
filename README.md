@@ -2,13 +2,39 @@
 
 This example contains a small Python package and CLI to calculate GC content from sequences in a FASTA file.
 
-The more important part of this repository is the GitHub Actions component, which demonstrates automated formatting, linting, testing, doctests, and coverage reporting for a simple Python project.
+The more important part of this repository are the GitHub Actions.
 
-[![Licence](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/acg-team/DSaaP-examples-FS26-workflow#license) [![CI](https://github.com/acg-team/DSaaP-examples-FS26-workflow/actions/workflows/pytest_doctests.yml/badge.svg)](https://github.com/acg-team/DSaaP-examples-FS26-workflow/actions) [![codecov](https://codecov.io/gh/acg-team/DSaaP-examples-FS26-workflow/branch/main/graph/badge.svg)](https://codecov.io/gh/acg-team/DSaaP-examples-FS26-workflow)
+The CI (continuous integration) workflows showcase automated formatting, linting, testing, doctests, and coverage reporting.
+
+The CD (continuous delivery/deployment) workflows showcase package upload to TestPyPI, which works analogously to PyPI, and generating platform-dependent binaries, which are uploaded to GitHub as release artifacts.
+
+[![Licence](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/acg-team/DSaaP-examples-FS26-workflow#license) [![CI](https://github.com/acg-team/DSaaP-examples-FS26-workflow/actions/workflows/pytest_doctests.yml/badge.svg)](https://github.com/acg-team/DSaaP-examples-FS26-workflow/actions) [![codecov](https://codecov.io/gh/acg-team/DSaaP-examples-FS26-workflow/branch/main/graph/badge.svg)](https://codecov.io/gh/acg-team/DSaaP-examples-FS26-workflow) [![Release](https://img.shields.io/github/v/release/acg-team/DSaaP-examples-FS26-workflow)](https://github.com/acg-team/DSaaP-examples-FS26-workflow/releases/tag/v0.1.1)
+
+
+## GitHub Actions
+
+The workflows in `.github/workflows/` show how the project is validated automatically on pushes and pull requests to `main` and how releases are published on tag creation.
+
+- CI:
+  - [`black.yml`](.github/workflows/black.yml): installs the package with dev dependencies and checks that the repository is correctly formatted with Black.
+  - [`pylint.yml`](.github/workflows/pylint.yml): installs the package with test and dev dependencies, and runs Pylint across all tracked Python files on Python 3.10, 3.11, 3.12, and 3.13.
+  - [`pytest_doctests.yml`](.github/workflows/pytest_doctests.yml): installs the package with test dependencies, runs pytest with doctests enabled, and publishes JUnit test results as workflow artifacts.
+  - [`pytest_codecov.yml`](.github/workflows/pytest_codecov.yml): installs the package with test dependencies, runs pytest with coverage, writes `coverage.xml`, and uploads coverage results to Codecov.
+- CD:
+  - [`deploy_to_testpypi.yml`](.github/workflows/deploy_to_testpypi.yml): triggered on `v*` tags, builds a source distribution and wheel with `build` and publishes them to TestPyPI using trusted publishing.
+  - [`release_pyinstaller_binaries.yml`](.github/workflows/release_pyinstaller_binaries.yml): triggered on `v*` tags, uses PyInstaller to build standalone executables for Linux, Windows, and macOS (including amd64 and Intel). Each executable is accompanied by a SHA-256 checksum file. Both executables and checksums are uploaded as workflow artifacts and attached to the corresponding GitHub release.
+
+Together, these workflows enforce code style, static analysis, test execution, doctest validation, coverage reporting, and allow package publishing and binary distribution.
+
+To verify a downloaded binary:
+
+```zsh
+sha256sum -c gc-content-linux.sha256
+```
 
 ## Setup
 
-To run these examples, you need Python 3 installed and a clone of the [DSaaP examples (workflow) repository]( https://github.com/acg-team/DSaaP-examples-FS26-workflow ).
+To run these examples locally, you need Python 3 installed and a clone of the [DSaaP examples (workflow) repository]( https://github.com/acg-team/DSaaP-examples-FS26-workflow ).
 
 This project is configured with `pyproject.toml`, which is the source of truth for package metadata and dependencies.
 
@@ -39,6 +65,12 @@ Alternatively, you can install the package system-wide:
 
 ```zsh
 pip install .
+```
+
+Or install the latest published version from TestPyPI:
+
+```zsh
+pip install -i https://test.pypi.org/simple/ gc-content-DSaaP-FS26
 ```
 
 ## Running the Script
@@ -92,17 +124,6 @@ To view the coverage report in your browser:
 ```zsh
 open htmlcov/index.html
 ```
-
-## GitHub Actions
-
-The workflows in `.github/workflows/` show how the project is validated automatically on pushes and pull requests to `main`.
-
-- `black.yml`: installs the package and checks that the repository is correctly formatted with Black.
-- `pylint.yml`: installs the package with test dependencies and runs Pylint across all tracked Python files on Python 3.10, 3.11, 3.12, and 3.13.
-- `pytest_doctests.yml`: installs the package with test dependencies, runs pytest with doctests enabled, and publishes JUnit test results as workflow artifacts.
-- `pytest_codecov.yml`: installs the package with test dependencies, runs pytest with coverage, writes `coverage.xml`, and uploads coverage results to Codecov.
-
-Together, these workflows enforce code style, static analysis, test execution, doctest validation, and coverage reporting.
 
 ## Data
 
